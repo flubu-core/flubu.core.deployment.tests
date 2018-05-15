@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using FlubuCore.Context;
 using FlubuCore.Scripting;
 
@@ -16,7 +18,8 @@ namespace BuildScript
         {
             session.CreateTarget("Unzip.deploy.package")
                 .Do(UnzipDeployPackages)
-                .Do(Deploy);
+                .Do(Deploy)
+                .DoAsync(this.TestWebApi);
         }
 
         protected void Deploy(ITaskContext context)
@@ -47,6 +50,17 @@ namespace BuildScript
                     context.LogInfo($"Unziping '{zip}'.");
                     context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
                 }
+            }
+        }
+
+        protected async Task TestWebApi(ITaskContext context)
+        {
+            var client = context.Tasks().CreateHttpClient("http://localhost");
+
+            var result = await client.GetAsync(new Uri("http://localhost/Flubu/api/healthcheck"));
+            if (result.StatusCode != HttpStatusCode.OK)
+            {
+                throw new TaskExecutionException("Flubu web api net462 not working properly", 0);
             }
         }
     }
