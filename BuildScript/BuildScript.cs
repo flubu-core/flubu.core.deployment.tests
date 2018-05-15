@@ -32,7 +32,7 @@ namespace BuildScript
             {
                 if (zip.StartsWith("FlubuCore.WebApi-Net462"))
                 {
-                    context.Tasks().UnzipTask("zip", "C:\\DeploymentTests\\FlubuCore.WebApi-Net46").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\FlubuCore.WebApi-Net46").Execute(context);
                 }
             }
         }
