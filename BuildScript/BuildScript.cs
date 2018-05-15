@@ -21,6 +21,9 @@ namespace BuildScript
 
         protected void Deploy(ITaskContext context)
         {
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\DeploymentConfig.json", true).Execute(context);
+
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\build.exe")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
         }
