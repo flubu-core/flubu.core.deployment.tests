@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using FlubuCore.Context;
 using FlubuCore.Scripting;
-using Microsoft.Web.Administration;
 
 namespace BuildScript
 {
