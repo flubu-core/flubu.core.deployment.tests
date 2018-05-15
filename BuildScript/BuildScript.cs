@@ -56,8 +56,7 @@ namespace BuildScript
         protected async Task TestWebApi(ITaskContext context)
         {
             var client = context.Tasks().CreateHttpClient("http://localhost");
-
-            var result = await client.GetAsync(new Uri("http://localhost/Flubu/api/healthcheck"));
+            var result = await client.GetAsync("http://localhost/Flubu/api/healthcheck");
             if (result.StatusCode != HttpStatusCode.OK)
             {
                 throw new TaskExecutionException("Flubu web api net462 not working properly", 0);
