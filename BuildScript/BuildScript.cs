@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using FlubuCore.Context;
 using FlubuCore.Scripting;
@@ -57,7 +56,7 @@ namespace BuildScript
         {
             var client = context.Tasks().CreateHttpClient("http://localhost");
             var result = await client.GetAsync("http://localhost/Flubu/api/healthcheck");
-            if (result.StatusCode != HttpStatusCode.OK)
+            if (!result.IsSuccessStatusCode)
             {
                 throw new TaskExecutionException("Flubu web api net462 not working properly", 0);
             }
