@@ -20,7 +20,7 @@ namespace BuildScript
 
         protected void UnzipDeployPackages(ITaskContext context)
         {
-            var zips = Directory.GetFiles(string.Empty, "*.zip").ToList();
+            var zips = Directory.GetFiles(".", "*.zip").ToList();
 
             if (zips.Count == 0)
             {
