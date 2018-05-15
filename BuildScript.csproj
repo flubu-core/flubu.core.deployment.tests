@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BuildScript\bin\**" />
+    <Compile Remove="BuildScript\obj\**" />
+    <EmbeddedResource Remove="BuildScript\bin\**" />
+    <EmbeddedResource Remove="BuildScript\obj\**" />
+    <None Remove="BuildScript\bin\**" />
+    <None Remove="BuildScript\obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlubuCore" Version="2.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-flubu" Version="2.7.2" />
+  </ItemGroup>
+</Project>
