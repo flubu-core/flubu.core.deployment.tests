@@ -30,8 +30,10 @@ namespace BuildScript
             context.Tasks().CreateDirectoryTask("C:\\DeploymentTests", true).Execute(context);
             foreach (var zip in zips)
             {
+                context.LogInfo($"Found zip file: {zip}.");
                 if (zip.StartsWith("FlubuCore.WebApi-Net462"))
                 {
+                    context.LogInfo($"Unziping '{zip}'.");
                     context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\FlubuCore.WebApi-Net46").Execute(context);
                 }
             }
