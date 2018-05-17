@@ -28,6 +28,30 @@ namespace BuildScript
 
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\build.exe")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
+
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller\\build.exe")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller").Execute(context);
+
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.0-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller\\build.exe")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").Execute(context);
+
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\build.exe")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller").Execute(context);
+
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.0-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\build.exe")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").Execute(context);
         }
 
         protected void UnzipDeployPackages(ITaskContext context)
@@ -48,6 +72,30 @@ namespace BuildScript
                 {
                     context.LogInfo($"Unziping '{zip}'.");
                     context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller").Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller").Execute(context);
                 }
             }
         }
