@@ -44,13 +44,13 @@ namespace BuildScript
             context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
 
-            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\build.exe")
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\build.exe").WithArguments("-s=deploymentscript.cs")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller").Execute(context);
 
             context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.0-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
 
-            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\build.exe")
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\build.exe").WithArguments("-s=deploymentscript.cs")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").Execute(context);
         }
 
