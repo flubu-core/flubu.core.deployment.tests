@@ -17,7 +17,7 @@ namespace BuildScript
         protected override void ConfigureTargets(ITaskContext session)
         {
             session.CreateTarget("Unzip.deploy.package")
-                .AddTask(x => x.IisTasks().ControlAppPoolTask("Flubu", ControlApplicationPoolAction.Stop))
+                .AddTask(x => x.IisTasks().ControlAppPoolTask("Flubu", ControlApplicationPoolAction.Stop).DoNotFailOnError())
                 .Do(UnzipDeployPackages)
                 .Do(Deploy)
                 .AddTask(x => x.IisTasks().ControlAppPoolTask("Flubu", ControlApplicationPoolAction.Start))
@@ -27,10 +27,10 @@ namespace BuildScript
         protected void Deploy(ITaskContext context)
         {
             context.Tasks()
-                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\DeploymentConfig.json", true).Retry(10, 5000).Execute(context);
+                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\DeploymentConfig.json", true).Execute(context);
 
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\build.exe")
-                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Retry(10, 5000).Execute(context);
 
             context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
