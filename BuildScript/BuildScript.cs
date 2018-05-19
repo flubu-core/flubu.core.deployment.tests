@@ -113,23 +113,20 @@ namespace BuildScript
                 throw new TaskExecutionException($"Flubu web api net462 not working properly. Error: {error}", 0);
             }
 
-            client = context.Tasks().CreateHttpClient("http://localhost");
             result = await client.GetAsync("http://localhost/FlubuNetCoreApp1.1Linux/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
                 var error = await result.Content.ReadAsStringAsync();
                 throw new TaskExecutionException($"Flubu web api netcoreApp1.1 Linux not working properly. Error: {error}", 0);
             }
-
-            client = context.Tasks().CreateHttpClient("http://localhost");
-             result = await client.GetAsync("http://localhost/FlubuNetCoreApp1.1Windows/healthcheck");
+       
+            result = await client.GetAsync("http://localhost/FlubuNetCoreApp1.1Windows/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
                 var error = await result.Content.ReadAsStringAsync();
                 throw new TaskExecutionException($"Flubu web api netcoreapp1.1 Windows not working properly. Error: {error}", 0);
             }
-
-            client = context.Tasks().CreateHttpClient("http://localhost");
+            
             result = await client.GetAsync("http://localhost/FlubuNetCoreApp2.0Linux/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
