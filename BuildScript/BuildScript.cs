@@ -109,31 +109,40 @@ namespace BuildScript
             var result = await client.GetAsync("http://localhost/Flubu/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
-                throw new TaskExecutionException("Flubu web api net462 not working properly", 0);
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api net462 not working properly. Error: {error}", 0);
             }
 
+            client = context.Tasks().CreateHttpClient("http://localhost");
             result = await client.GetAsync("http://localhost/FlubuNetCoreApp1.1Linux/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
-                throw new TaskExecutionException("Flubu web api netcoreApp1.1 Linux not working properly", 0);
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreApp1.1 Linux not working properly. Error: {error}", 0);
             }
 
+            client = context.Tasks().CreateHttpClient("http://localhost");
              result = await client.GetAsync("http://localhost/FlubuNetCoreApp1.1Windows/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
-                throw new TaskExecutionException("Flubu web api netcoreapp1.1 Windows not working properly", 0);
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreapp1.1 Windows not working properly. Error: {error}", 0);
             }
 
+            client = context.Tasks().CreateHttpClient("http://localhost");
             result = await client.GetAsync("http://localhost/FlubuNetCoreApp2.0Linux/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
-                throw new TaskExecutionException("Flubu web api netcoreapp2.0 Linux not working properly", 0);
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreapp2.0 Linux not working properly. Error: {error}", 0);
             }
 
+            client = context.Tasks().CreateHttpClient("http://localhost");
             result = await client.GetAsync("http://localhost/FlubuNetCoreApp2.0Windows/api/healthcheck");
             if (!result.IsSuccessStatusCode)
             {
-                throw new TaskExecutionException("Flubu web api netcoreapp2.0 Windows not working properly", 0);
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreapp2.0 Windows not working properly. Error: {error}", 0);
             }
         }
     }
