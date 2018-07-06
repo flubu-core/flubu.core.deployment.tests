@@ -45,6 +45,12 @@ namespace BuildScript
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").Execute(context);
 
             context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\deploy.bat")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller").Execute(context);
+
+            context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
 
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller\\build.exe").WithArguments("-s=deploymentscript.cs")
@@ -55,6 +61,12 @@ namespace BuildScript
 
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\build.exe").WithArguments("-s=deploymentscript.cs")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").Execute(context);
+
+            context.Tasks()
+                .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.1-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
+
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\build.exe").WithArguments("-s=deploymentscript.cs")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller").Execute(context);
         }
 
         protected void UnzipDeployPackages(ITaskContext context)
@@ -71,34 +83,47 @@ namespace BuildScript
             foreach (var zip in zips)
             {
                 context.LogInfo($"Found zip file: {zip}.");
+
                 if (zip.StartsWith(@".\FlubuCore.WebApi-Net462"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").NoLog().Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller").NoLog().Execute(context);
+                }
+
+                if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller"))
+                {
+                    context.LogInfo($"Unziping '{zip}'.");
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-WindowsInstaller").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller").Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller").NoLog().Execute(context);
                 }
             }
         }
@@ -140,6 +165,21 @@ namespace BuildScript
             {
                 var error = await result.Content.ReadAsStringAsync();
                 throw new TaskExecutionException($"Flubu web api netcoreapp2.0 Windows not working properly. Error: {error}", 0);
+            }
+
+            result = await client.GetAsync("http://localhost/FlubuNetCoreApp2.1Linux/api/healthcheck");
+            if (!result.IsSuccessStatusCode)
+            {
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreapp2.1 Linux not working properly. Error: {error}", 0);
+            }
+
+            client = context.Tasks().CreateHttpClient("http://localhost");
+            result = await client.GetAsync("http://localhost/FlubuNetCoreApp2.1Windows/api/healthcheck");
+            if (!result.IsSuccessStatusCode)
+            {
+                var error = await result.Content.ReadAsStringAsync();
+                throw new TaskExecutionException($"Flubu web api netcoreapp2.1 Windows not working properly. Error: {error}", 0);
             }
         }
     }
