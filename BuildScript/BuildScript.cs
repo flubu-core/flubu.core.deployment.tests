@@ -84,7 +84,7 @@ namespace BuildScript
             {
                 context.LogInfo($"Found zip file: {zip}.");
 
-                if (zip.StartsWith(@".\FlubuCore.WebApi-Net462"))
+                if (zip.StartsWith(@".\FlubuCore.WebApi-Net462-x64"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
                     context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64").NoLog().Execute(context);
