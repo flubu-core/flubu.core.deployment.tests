@@ -27,10 +27,10 @@ namespace BuildScript
         protected void Deploy(ITaskContext context)
         {
             context.Tasks()
-                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\DeploymentConfig.json", true).Execute(context);
+                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64\\DeploymentConfig.json", true).Execute(context);
 
-            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\flubu.exe")
-                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").Retry(10, 5000).Execute(context);
+            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64\\flubu.exe")
+                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64").Retry(10, 5000).Execute(context);
 
             context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp1.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp1.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
