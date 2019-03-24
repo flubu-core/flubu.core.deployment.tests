@@ -87,7 +87,7 @@ namespace BuildScript
                 if (zip.StartsWith(@".\FlubuCore.WebApi-Net462"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").NoLog().Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller"))
