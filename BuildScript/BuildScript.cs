@@ -17,10 +17,13 @@ namespace BuildScript
         protected override void ConfigureTargets(ITaskContext session)
         {
             session.CreateTarget("Unzip.deploy.package")
-                .AddTask(x => x.IisTasks().ControlAppPoolTask("Flubu", ControlApplicationPoolAction.Stop).DoNotFailOnError())
+                .AddTask(x => x.IisTasks().ControlAppPoolTask("flubu", ControlApplicationPoolAction.Stop).DoNotFailOnError())
+                .AddTask(x => x.IisTasks().ControlAppPoolTask("flubu3.1", ControlApplicationPoolAction.Stop).DoNotFailOnError())
+                .AddTask(x => x.Sleep(5000))
                 .Do(UnzipDeployPackages)
                 .Do(Deploy)
-                .AddTask(x => x.IisTasks().ControlAppPoolTask("Flubu", ControlApplicationPoolAction.Start))
+                .AddTask(x => x.IisTasks().ControlAppPoolTask("flubu", ControlApplicationPoolAction.Start))
+                .AddTask(x => x.IisTasks().ControlAppPoolTask("flubu3.1", ControlApplicationPoolAction.Start))
                 .DoAsync(this.TestWebApi);
         }
 
