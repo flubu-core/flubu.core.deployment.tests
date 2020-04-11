@@ -27,7 +27,7 @@ namespace BuildScript
         protected void Deploy(ITaskContext context)
         {
             context.Tasks()
-                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64\\DeploymentConfig.json", true).Execute(context);
+                .CopyFileTask(@".\DeploymentConfig.net462.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462\\DeploymentConfig.json", true).Execute(context);
 
             context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64\\flubu.exe")
                 .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64").Retry(10, 5000).Execute(context);
@@ -75,7 +75,7 @@ namespace BuildScript
                 if (zip.StartsWith(@".\FlubuCore.WebApi-Net462-x64"))
                 {
                     context.LogInfo($"Unziping '{zip}'.");
-                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462-x64").NoLog().Execute(context);
+                    context.Tasks().UnzipTask(zip, "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-Net462").NoLog().Execute(context);
                 }
 
                 if (zip.StartsWith(@".\FlubuCore.WebApi-NetCoreApp2.1-WindowsInstaller"))
