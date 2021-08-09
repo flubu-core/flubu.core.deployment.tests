@@ -35,11 +35,11 @@ namespace BuildScript
             //context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller\\deploy.bat")
             //    .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-LinuxMacInstaller").Execute(context);
 
-            context.Tasks()
-                .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
+            ////context.Tasks()
+            ////    .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.1-Linux.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\DeploymentConfig.json", true).Execute(context);
 
-            context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\deploy.bat")
-                .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller").Execute(context);
+            ////context.Tasks().RunProgramTask("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller\\deploy.bat")
+            ////    .WorkingFolder("C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.1-LinuxMacInstaller").Execute(context);
             
             context.Tasks()
                 .CopyFileTask(@".\DeploymentConfig.NetCoreApp2.0-Windows.json", "C:\\DeploymentTests\\DeployPackages\\FlubuCore.WebApi-NetCoreApp2.0-WindowsInstaller\\DeploymentConfig.json", true).Execute(context);
